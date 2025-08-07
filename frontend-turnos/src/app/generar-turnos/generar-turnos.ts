@@ -11,6 +11,8 @@ import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { Comerce } from '../models/comerce.model';
 import { Service } from '../models/service.model';
+import { Shift } from '../models/shift.model';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-generar-turnos',
@@ -24,7 +26,8 @@ import { Service } from '../models/service.model';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule
   ],
   templateUrl: './generar-turnos.html',
   styleUrl: './generar-turnos.css'
@@ -38,7 +41,8 @@ export class GenerarTurnosComponents implements OnInit {
   servicioSeleccionado: number | null = null;
   fechaInicio = '';
   fechaFin = '';
-  turnos: any[] = [];
+  turnosGenerados: Shift[] = [];
+  columnasTurnos: string[] = ['nombreComercio', 'nombreServicio', 'fechaTurno', 'horaInicio', 'horaFin'];
 
   constructor(private http: HttpClient,private router: Router) {}
 
@@ -65,14 +69,13 @@ export class GenerarTurnosComponents implements OnInit {
 
   generarTurnos() {
     const body = {
-      comercioId: this.comercioSeleccionado,
-      servicioId: this.servicioSeleccionado,
+      idServicio: this.servicioSeleccionado,
       fechaInicio: this.fechaInicio,
       fechaFin: this.fechaFin
     };
 
-    this.http.post<any[]>('/turnos/generar', body).subscribe(turnos => {
-      this.turnos = turnos;
+    this.http.post<Shift[]>('/turnos/generar', body).subscribe(turnos => {
+      this.turnosGenerados = turnos;
     });
   }
 }
