@@ -29,6 +29,7 @@ export class LoginComponent {
   login() {
     if (this.username === 'admin' && this.password === '1234') {
       this.loginError = false;
+      localStorage.setItem('usuario', this.username);
       this.router.navigate(['/generar-turnos']);
     } else {
       this.loginError = true;

@@ -1,33 +1,38 @@
-<h2>Generación de Turnos</h2>
-<div>Bienvenido, {{ usuario }}</div>
+<mat-toolbar color="primary">
+  Bienvenido, {{ usuario }}
+</mat-toolbar>
 
-<div>
-  <select [(ngModel)]="comercioSeleccionado">
-    <option *ngFor="let comercio of comercios" [value]="comercio.id">{{ comercio.nombre }}</option>
-  </select>
+<div class="contenido">
+  <mat-card>
+    <mat-card-title>Generar Turnos</mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="generarTurnos()" class="formulario">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Comercio</mat-label>
+          <mat-select [(ngModel)]="comercioSeleccionado" name="comercio" (selectionChange)="cargarServicios()">
+            <mat-option *ngFor="let c of comercios" [value]="c.idComercio">{{ c.nombreComercio }}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-  <select [(ngModel)]="servicioSeleccionado">
-    <option *ngFor="let servicio of servicios" [value]="servicio.id">{{ servicio.nombre }}</option>
-  </select>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Servicio</mat-label>
+          <mat-select [(ngModel)]="servicioSeleccionado" name="servicio">
+            <mat-option *ngFor="let s of servicios" [value]="s.id">{{ s.nombre }}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-  <input type="date" [(ngModel)]="fechaInicio" />
-  <input type="date" [(ngModel)]="fechaFin" />
-  <button (click)="generarTurnos()">Generar</button>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Fecha inicio</mat-label>
+          <input matInput type="date" [(ngModel)]="fechaInicio" name="fechaInicio" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Fecha fin</mat-label>
+          <input matInput type="date" [(ngModel)]="fechaFin" name="fechaFin" />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">Generar Turnos</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>
-
-<table *ngIf="turnos.length">
-  <tr>
-    <th>Comercio</th>
-    <th>Servicio</th>
-    <th>Fecha Turno</th>
-    <th>Hora Inicio</th>
-    <th>Hora Fin</th>
-  </tr>
-  <tr *ngFor="let turno of turnos">
-    <td>{{ turno.comercio }}</td>
-    <td>{{ turno.servicio }}</td>
-    <td>{{ turno.fecha }}</td>
-    <td>{{ turno.horaInicio }}</td>
-    <td>{{ turno.horaFin }}</td>
-  </tr>
-</table>
