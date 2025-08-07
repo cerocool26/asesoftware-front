@@ -13,6 +13,7 @@ import { Comerce } from '../models/comerce.model';
 import { Service } from '../models/service.model';
 import { Shift } from '../models/shift.model';
 import { MatTableModule } from '@angular/material/table';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-generar-turnos',
@@ -44,7 +45,7 @@ export class GenerarTurnosComponents implements OnInit {
   turnosGenerados: Shift[] = [];
   columnasTurnos: string[] = ['nombreComercio', 'nombreServicio', 'fechaTurno', 'horaInicio', 'horaFin'];
 
-  constructor(private http: HttpClient,private router: Router) {}
+  constructor(private http: HttpClient,private router: Router,private cdRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.usuario = localStorage.getItem('usuario') || '';
@@ -76,6 +77,7 @@ export class GenerarTurnosComponents implements OnInit {
 
     this.http.post<Shift[]>('/turnos/generar', body).subscribe(turnos => {
       this.turnosGenerados = turnos;
+      this.cdRef.detectChanges();
     });
   }
 }
