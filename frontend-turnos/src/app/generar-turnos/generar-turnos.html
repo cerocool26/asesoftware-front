@@ -17,7 +17,7 @@
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Servicio</mat-label>
           <mat-select [(ngModel)]="servicioSeleccionado" name="servicio">
-            <mat-option *ngFor="let s of servicios" [value]="s.id">{{ s.nombre }}</mat-option>
+            <mat-option *ngFor="let s of servicios" [value]="s.idServicio">{{ s.nombreServicio }}</mat-option>
           </mat-select>
         </mat-form-field>
 

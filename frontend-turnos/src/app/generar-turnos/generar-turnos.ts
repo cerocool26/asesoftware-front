@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { Comerce } from '../models/comerce.model';
+import { Service } from '../models/service.model';
 
 @Component({
   selector: 'app-generar-turnos',
@@ -31,7 +32,7 @@ import { Comerce } from '../models/comerce.model';
 export class GenerarTurnosComponents implements OnInit {
   usuario = localStorage.getItem('usuario') || '';
   comercios: Comerce[] = [];
-  servicios: any[] = [];
+  servicios: Service[] = [];
 
   comercioSeleccionado: number | null = null;
   servicioSeleccionado: number | null = null;
@@ -55,7 +56,7 @@ export class GenerarTurnosComponents implements OnInit {
   cargarServicios() {
     if (this.comercioSeleccionado != null) {
       this.http
-        .get<any[]>(`/servicios/${this.comercioSeleccionado}`)
+        .get<Service[]>(`/servicios/comercio/${this.comercioSeleccionado}`)
         .subscribe(data => {
           this.servicios = data;
         });
