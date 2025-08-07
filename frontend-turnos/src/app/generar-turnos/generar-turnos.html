@@ -1,0 +1,33 @@
+<h2>Generación de Turnos</h2>
+<div>Bienvenido, {{ usuario }}</div>
+
+<div>
+  <select [(ngModel)]="comercioSeleccionado">
+    <option *ngFor="let comercio of comercios" [value]="comercio.id">{{ comercio.nombre }}</option>
+  </select>
+
+  <select [(ngModel)]="servicioSeleccionado">
+    <option *ngFor="let servicio of servicios" [value]="servicio.id">{{ servicio.nombre }}</option>
+  </select>
+
+  <input type="date" [(ngModel)]="fechaInicio" />
+  <input type="date" [(ngModel)]="fechaFin" />
+  <button (click)="generarTurnos()">Generar</button>
+</div>
+
+<table *ngIf="turnos.length">
+  <tr>
+    <th>Comercio</th>
+    <th>Servicio</th>
+    <th>Fecha Turno</th>
+    <th>Hora Inicio</th>
+    <th>Hora Fin</th>
+  </tr>
+  <tr *ngFor="let turno of turnos">
+    <td>{{ turno.comercio }}</td>
+    <td>{{ turno.servicio }}</td>
+    <td>{{ turno.fecha }}</td>
+    <td>{{ turno.horaInicio }}</td>
+    <td>{{ turno.horaFin }}</td>
+  </tr>
+</table>
